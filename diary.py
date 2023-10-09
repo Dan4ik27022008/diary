@@ -7,17 +7,17 @@ try:
     with open('data.dat', 'rb') as f:
         maindict = pickle.load(f)
 except:
-    maindict = {'links': {}, 'nmbr_of_lsns': [], 'bgn_tm': [], 'end_tm': [], 'понеділок': [], 'вівторок': [], 'середу': [], 'четвер': [], 'п\'ятницю': []}
-    print('Введіть кількість уроків у')
+    maindict = {'links': {}, 'bgn_tm': [], 'end_tm': [], 'понеділок': [], 'вівторок': [], 'середу': [], 'четвер': [], 'п\'ятницю': []}
+ 
     for day in days:
-        maindict['nmbr_of_lsns'].append(int(input(f'{day}:')))
+        print(f'Введіть розклад уроків на {day}, розділяючи їх комою. Наприклад: Математика, Історія, Українська мова')
+        l = input()
+        if not l in [' ', '']:
+            maindict[day] = [lesson.strip() for lesson in l.split(',')]
+        else:
+            maindict[day] = []
     
-    for day in days:
-        print(f'Введіть розклад уроків на {day}')
-        for i in range(1, maindict['nmbr_of_lsns'][days.index(day)] + 1):
-            maindict[day].append(input(f'{i} урок:'))
-    
-    for i in range(1, max(maindict['nmbr_of_lsns']) + 1):
+    for i in range(1, max([(len(maindict['понеділок'])), (len(maindict['вівторок'])), (len(maindict['середу'])), (len(maindict['четвер'])), (len(maindict['п\'ятницю']))]) + 1):
         bgn_tm = input(f'Введіть час коли починається {i} урок, у такому вигляді - ГГ:XX\n')
         maindict['bgn_tm'].append((int(bgn_tm.split(':')[0]) * 60 + int(bgn_tm.split(':')[1])))
 
